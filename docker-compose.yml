@@ -13,7 +13,14 @@ services:
       - ./init.sql:/docker-entrypoint-initdb.d/01-init.sql:ro
       - ./seeder.sql:/docker-entrypoint-initdb.d/02-seeder.sql:ro
 
-  lang:
+  dart:
+    image: dart:stable
+    volumes:
+      - .:/app
+    working_dir: /app
+    command: dart legacy.dart
+    depends_on:
+      - db
 
 volumes:
   postgres_data:
